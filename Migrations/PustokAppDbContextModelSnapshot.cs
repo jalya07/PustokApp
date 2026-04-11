@@ -2,20 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pustokApp.Data;
 
 #nullable disable
 
-namespace pustokApp.Data.Migrations
+namespace pustokApp.Migrations
 {
     [DbContext(typeof(PustokAppDbContext))]
-    [Migration("20260410082755_mig_1")]
-    partial class mig_1
+    partial class PustokAppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +36,18 @@ namespace pustokApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FullName = "H.G. Wells"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FullName = "J.D. Kurtness"
+                        });
                 });
 
             modelBuilder.Entity("pustokApp.Models.Book", b =>
@@ -81,7 +90,8 @@ namespace pustokApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -91,6 +101,38 @@ namespace pustokApp.Data.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AuthorId = 1,
+                            Code = 1001,
+                            Desc = "Cover Up Front Of Books And Leave Summary",
+                            DiscountPercent = 10,
+                            HoverUrl = "~/image/products/product-1-2.jpg",
+                            InStock = true,
+                            IsFeatured = true,
+                            IsNew = true,
+                            MainUrl = "~/image/products/product-1-1.jpg",
+                            Name = "De Vengeance",
+                            Price = 78.090000000000003
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AuthorId = 2,
+                            Code = 1002,
+                            Desc = "Cover Up Front Of Books And Leave Summary",
+                            DiscountPercent = 5,
+                            HoverUrl = "~/image/products/product-2-2.jpg",
+                            InStock = true,
+                            IsFeatured = true,
+                            IsNew = false,
+                            MainUrl = "~/image/products/product-2-1.jpg",
+                            Name = "De Vengeance",
+                            Price = 78.090000000000003
+                        });
                 });
 
             modelBuilder.Entity("pustokApp.Models.BookImage", b =>
@@ -117,21 +159,16 @@ namespace pustokApp.Data.Migrations
 
             modelBuilder.Entity("pustokApp.Models.BookTag", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
-                    b.HasIndex("BookId");
+                    b.HasKey("BookId", "TagId");
 
                     b.HasIndex("TagId");
 

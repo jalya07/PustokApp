@@ -1,14 +1,23 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using pustokApp.Models;
+using pustokApp.Data;
+using Microsoft.EntityFrameworkCore;
+using pustokApp.ViewModels;
 
 namespace pustokApp.Controllers;
 
-public class HomeController : Controller
+public class HomeController(PustokAppDbContext context) : Controller
 {
-    public IActionResult Index()
+    private readonly PustokAppDbContext _context = context;
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var sliders = await _context.Sliders.ToListAsync();
+        HomeVm homeVm = new HomeVm
+        {
+            Sliders = sliders
+        };
+        return View(homeVm);
     }
 
     public IActionResult Privacy()

@@ -2,10 +2,12 @@
 
 #nullable disable
 
-namespace pustokApp.Data.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace pustokApp.Migrations
 {
     /// <inheritdoc />
-    public partial class mig_1 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +62,7 @@ namespace pustokApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Desc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Code = table.Column<int>(type: "int", nullable: false),
@@ -107,14 +109,13 @@ namespace pustokApp.Data.Migrations
                 name: "BookTags",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookTags", x => x.Id);
+                    table.PrimaryKey("PK_BookTags", x => new { x.BookId, x.TagId });
                     table.ForeignKey(
                         name: "FK_BookTags_Books_BookId",
                         column: x => x.BookId,
@@ -129,6 +130,24 @@ namespace pustokApp.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "FullName" },
+                values: new object[,]
+                {
+                    { 1, "H.G. Wells" },
+                    { 2, "J.D. Kurtness" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "AuthorId", "Code", "Desc", "DiscountPercent", "HoverUrl", "InStock", "IsFeatured", "IsNew", "MainUrl", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, 1, 1001, "Cover Up Front Of Books And Leave Summary", 10, "~/image/products/product-1-2.jpg", true, true, true, "~/image/products/product-1-1.jpg", "De Vengeance", 78.090000000000003 },
+                    { 2, 2, 1002, "Cover Up Front Of Books And Leave Summary", 5, "~/image/products/product-2-2.jpg", true, true, false, "~/image/products/product-2-1.jpg", "De Vengeance", 78.090000000000003 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_BookImages_BookId",
                 table: "BookImages",
@@ -138,11 +157,6 @@ namespace pustokApp.Data.Migrations
                 name: "IX_Books_AuthorId",
                 table: "Books",
                 column: "AuthorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BookTags_BookId",
-                table: "BookTags",
-                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookTags_TagId",
