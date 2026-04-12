@@ -10,39 +10,30 @@ namespace pustokApp.Controllers;
 public class HomeController(PustokAppDbContext context) : Controller
 {
     private readonly PustokAppDbContext _context = context;
+
     public async Task<IActionResult> Index()
     {
         var sliders = await _context.Sliders.ToListAsync();
         HomeVm homeVm = new HomeVm
         {
-            Sliders = sliders
+            Sliders = context.Sliders.ToList(),
+            FeaturedBooks = context.Books
+                .Include(x => x.Author)
+                .Include(x => x.BookImages)
+                .Where(x => x.IsFeatured)
+                .ToList(),
+            NewBooks = context.Books
+                .Include(x => x.Author)
+                .Include(x => x.BookImages)
+                .Where(x => x.IsNew)
+                .ToList(),
+            DiscountedBooks = context.Books
+                .Include(x => x.Author)
+                .Include(x => x.BookImages)
+                .Where(x => x.DiscountPercent > 0)
+                .ToList()
+
         };
         return View(homeVm);
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult Subscribe(string email)
-    {
-        if (string.IsNullOrEmpty(email))
-        {
-            return RedirectToAction("Index");
-        }
-        
-        // TODO: Implementiraj logiku za newsletter subscription
-        // Npr. spremi email u bazu podataka ili pošalji email
-        
-        TempData["SuccessMessage"] = "Hvala na prijavi za newsletter!";
-        return RedirectToAction("Index");
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
