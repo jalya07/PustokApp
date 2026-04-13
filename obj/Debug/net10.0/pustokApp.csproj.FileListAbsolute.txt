@@ -286,3 +286,4 @@
 /Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/obj/Debug/net10.0/pustokApp.pdb
 /Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/obj/Debug/net10.0/pustokApp.genruntimeconfig.cache
 /Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/obj/Debug/net10.0/ref/pustokApp.dll
+/Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/obj/Debug/net10.0/compressed/e1602hcsdo-{0}-l5zxxqixll-l5zxxqixll.gz

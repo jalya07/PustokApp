@@ -1,0 +1,152 @@
+@model Book
+
+<div class="modal-content">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="product-details-modal">
+        <div class="row">
+            <div class="col-lg-5">
+                <!-- Главное изображение -->
+                <div class="product-details-slider sb-slick-slider arrow-type-two" data-slick-setting='{
+                    "slidesToShow": 1,
+                    "arrows": false,
+                    "fade": true,
+                    "draggable": false,
+                    "swipe": false,
+                    "asNavFor": ".product-slider-nav"
+                }'>
+                    <div class="single-slide">
+                        <img src="~/assets/image/products/@Model.MainUrl" alt="@Model.Name">
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.HoverUrl))
+                    {
+                        <div class="single-slide">
+                            <img src="~/assets/image/products/@Model.HoverUrl" alt="@Model.Name">
+                        </div>
+                    }
+                    @if (Model.BookImages != null)
+                    {
+                        @foreach (var image in Model.BookImages)
+                        {
+                            <div class="single-slide">
+                                <img src="~/assets/image/products/@image.ImageUrl" alt="@Model.Name">
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Thumbnail навигация -->
+                <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two" data-slick-setting='{
+                    "infinite": true,
+                    "autoplay": true,
+                    "autoplaySpeed": 8000,
+                    "slidesToShow": 4,
+                    "arrows": true,
+                    "prevArrow": {"buttonClass": "slick-prev", "iconClass": "fa fa-chevron-left"},
+                    "nextArrow": {"buttonClass": "slick-next", "iconClass": "fa fa-chevron-right"},
+                    "asNavFor": ".product-details-slider",
+                    "focusOnSelect": true
+                }'>
+                    <div class="single-slide">
+                        <img src="~/assets/image/products/@Model.MainUrl" alt="@Model.Name">
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.HoverUrl))
+                    {
+                        <div class="single-slide">
+                            <img src="~/assets/image/products/@Model.HoverUrl" alt="@Model.Name">
+                        </div>
+                    }
+                    @if (Model.BookImages != null)
+                    {
+                        @foreach (var image in Model.BookImages)
+                        {
+                            <div class="single-slide">
+                                <img src="~/assets/image/products/@image.ImageUrl" alt="@Model.Name">
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-7 mt--30 mt-lg--30">
+                <div class="product-details-info pl-lg--30">
+
+                    <!-- Теги -->
+                    @if (Model.BookTags != null && Model.BookTags.Any())
+                    {
+                        <p class="tag-block">
+                            Tags: @Html.Raw(string.Join(", ", Model.BookTags.Select(bt => $"<a href=\"#\">{bt.Tag?.Name}</a>")))
+                        </p>
+                    }
+
+                    <!-- Название -->
+                    <h3 class="product-title">@Model.Name</h3>
+
+                    <!-- Детали -->
+                    <ul class="list-unstyled">
+                        <li>Author: <a href="#" class="list-value font-weight-bold">@Model.Author?.FullName</a></li>
+                        <li>Product Code: <span class="list-value">@Model.Code</span></li>
+                        <li>Availability: <span class="list-value">@(Model.InStock ? "In Stock" : "Out of Stock")</span></li>
+                    </ul>
+
+                    <!-- Цена -->
+                    <div class="price-block">
+                        @if (Model.DiscountPercent > 0)
+                        {
+                            decimal discountedPrice = (decimal)Model.Price * (1 - (Model.DiscountPercent / 100m));
+                            <span class="price-new">£@discountedPrice.ToString("F2")</span>
+                            <del class="price-old">£@Model.Price.ToString("F2")</del>
+                        }
+                        else
+                        {
+                            <span class="price-new">£@Model.Price.ToString("F2")</span>
+                        }
+                    </div>
+
+                    <!-- Описание -->
+                    @if (!string.IsNullOrEmpty(Model.Desc))
+                    {
+                        <article class="product-details-article">
+                            <h4 class="sr-only">Product Summary</h4>
+                            <p>@Model.Desc</p>
+                        </article>
+                    }
+
+                    <!-- Количество и корзина -->
+                    <div class="add-to-cart-row">
+                        <div class="count-input-block">
+                            <span class="widget-label">Qty</span>
+                            <input type="number" class="form-control text-center" value="1" min="1">
+                        </div>
+                        <div class="add-cart-btn">
+                            <a href="#" class="btn btn-outlined--primary">
+                                <span class="plus-icon">+</span>Add to Cart
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Wishlist / Compare / Details -->
+                    <div class="compare-wishlist-row">
+                        <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
+                        <a href="#" class="add-link"><i class="fas fa-random"></i>Add to Compare</a>
+                    </div>
+                    <a href="@Url.Action("Details", "Books", new { id = Model.Id })" 
+                       class="btn btn-outlined--primary mt--15">
+                        View Full Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="widget-social-share">
+            <span class="widget-label">Share:</span>
+            <div class="modal-social-share">
+                <a href="#" class="single-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="single-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="single-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="single-icon"><i class="fab fa-google-plus-g"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

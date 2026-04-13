@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using pustokApp.Data;
+using pustokApp.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<BankService>();
 
 var confg = builder.Configuration;
 builder.Services.AddDbContext<PustokAppDbContext>(options =>
