@@ -16,7 +16,7 @@ namespace pustokApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.0")
+                .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -36,18 +36,6 @@ namespace pustokApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FullName = "H.G. Wells"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FullName = "J.D. Kurtness"
-                        });
                 });
 
             modelBuilder.Entity("pustokApp.Models.Book", b =>
@@ -101,38 +89,6 @@ namespace pustokApp.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AuthorId = 1,
-                            Code = 1001,
-                            Desc = "Cover Up Front Of Books And Leave Summary",
-                            DiscountPercent = 10,
-                            HoverUrl = "~/image/products/product-1-2.jpg",
-                            InStock = true,
-                            IsFeatured = true,
-                            IsNew = true,
-                            MainUrl = "~/image/products/product-1-1.jpg",
-                            Name = "De Vengeance",
-                            Price = 78.090000000000003
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AuthorId = 2,
-                            Code = 1002,
-                            Desc = "Cover Up Front Of Books And Leave Summary",
-                            DiscountPercent = 5,
-                            HoverUrl = "~/image/products/product-2-2.jpg",
-                            InStock = true,
-                            IsFeatured = true,
-                            IsNew = false,
-                            MainUrl = "~/image/products/product-2-1.jpg",
-                            Name = "De Vengeance",
-                            Price = 78.090000000000003
-                        });
                 });
 
             modelBuilder.Entity("pustokApp.Models.BookImage", b =>
@@ -173,6 +129,20 @@ namespace pustokApp.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("BookTags");
+                });
+
+            modelBuilder.Entity("pustokApp.Models.Setting", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Key");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("pustokApp.Models.Slider", b =>

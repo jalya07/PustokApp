@@ -9,6 +9,7 @@ var config = builder.Configuration;
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<BankService>();
 builder.Services.AddScoped<BankManager>();
+builder.Services.AddScoped<LayoutService>();
 builder.Services.Configure<GroupInfoSettings>(config.GetSection("GroupInfo"));
 
 // var confg = builder.Configuration;
@@ -23,6 +24,10 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.MapControllerRoute(
+    name : "areas",
+    pattern : "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+    );
 
 app.MapControllerRoute(
         name: "default",
