@@ -9,7 +9,7 @@
                 </div>
                 <div class="card-body p-4">
                     <form method="post" action="@Url.Action("Create", "Author")" class="needs-validation">
-                        <input type="hidden" name="__RequestVerificationToken" value="@ViewData["RequestVerificationToken"]" />
+                        @Html.AntiForgeryToken()
                         
                         <!-- Full Name Input -->
                         <div class="mb-4">
@@ -21,12 +21,11 @@
                                    id="fullName" 
                                    name="FullName" 
                                    placeholder="Enter author's full name"
-                                   value="@Model?.FullName"
+                                   value="@(Model?.FullName ?? "")"
                                    required
-                                   minlength="2"
-                                   maxlength="100">
+                                   minlength="2">
                             <small class="form-text text-muted">Enter the complete name of the author</small>
-                            @if (ViewData.ModelState["FullName"] != null && ViewData.ModelState["FullName"].Errors.Count > 0)
+                            @if (ViewData.ModelState["FullName"]?.Errors.Count > 0)
                             {
                                 <div class="alert alert-danger mt-2 mb-0" role="alert">
                                     @ViewData.ModelState["FullName"].Errors[0].ErrorMessage
@@ -49,7 +48,7 @@
 
             <!-- Form Info -->
             <div class="alert alert-info mt-4" role="alert">
-                <i class="bi bi-info-circle"></i> <strong>Note:</strong> The author name is required and must be between 2-100 characters.
+                <i class="bi bi-info-circle"></i> <strong>Note:</strong> The author name is required and must be at least 2 characters.
             </div>
         </div>
     </div>

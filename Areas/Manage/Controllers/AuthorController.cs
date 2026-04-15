@@ -27,15 +27,18 @@ public class AuthorController : Controller
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(string fullname)
+    public IActionResult Create(Author author)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
+            return View(author);
+        Author newAuthor = new Author()
         {
-            _context.Authors.Add(new Author { FullName = fullname });
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-        return View(fullname);
+            FullName = author.FullName,
+            Id = author.Id
+        };
+        _context.Authors.Add(newAuthor);
+        _context.SaveChanges();
+        return RedirectToAction("Index");
     }
 
     public IActionResult Edit(int id)
