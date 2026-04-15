@@ -1,0 +1,89 @@
+@model Author 
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1>Author Details</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="@Url.Action("Index", "Author")" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">@Model.FullName</h5>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <p>
+                        <strong>ID:</strong> @Model.Id
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <strong>Total Books:</strong>
+                        <span class="badge bg-info">
+                            @(Model.Books?.Count ?? 0)
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            @if (Model.Books != null && Model.Books.Count > 0)
+            {
+                <div class="mt-4">
+                    <h6>Books by this Author:</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Book Title</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var book in Model.Books)
+                                {
+                                    <tr>
+                                        <td>@book.Name</td>
+                                        <td>@book.Price.ToString("C")</td>
+                                        <td>
+                                            @if (book.InStock)
+                                            {
+                                                <span class="badge bg-success">In Stock</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">Out of Stock</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-4">
+                    <strong>No books found</strong> by this author yet.
+                </div>
+            }
+
+            <div class="mt-4">
+                <a href="@Url.Action("Edit", "Author", new { id = Model.Id })" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Edit Author
+                </a>
+                <a href="@Url.Action("Index", "Author")" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

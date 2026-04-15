@@ -20,6 +20,8 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/manage/css/style.css">
     <!-- End layout styles -->
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="shortcut icon" href="~/manage/images/favicon.png" />
   </head>
   <body>
@@ -216,6 +218,18 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" asp-area="manage" asp-controller="author" asp-action="index">
+                <span class="menu-title">Author</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" asp-controller="slider" asp-action="index">
+                <span class="menu-title">Slider</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Basic UI Elements</span>
                 <i class="menu-arrow"></i>
@@ -348,6 +362,8 @@
   <script src="~/manage/vendors/chart.js/chart.umd.js"></script>
   <script src="~/manage/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <!-- End plugin js for this page -->
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
   <!-- inject:js -->
   <script src="~/manage/js/off-canvas.js"></script>
   <script src="~/manage/js/misc.js"></script>
@@ -358,5 +374,6 @@
   <!-- Custom js for this page -->
   <script src="~/manage/js/dashboard.js"></script>
   <!-- End custom js for this page -->
-  </body>
-  </html>
+  @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,59 @@
+@using pustokApp.Models
+@model Slider
+
+@{
+    ViewData["Title"] = "Create Slider";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>Create New Slider</h1>
+            <hr />
+
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label">Title</label>
+                    <input asp-for="Title" class="form-control" placeholder="Enter slider title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter slider description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">Image URL</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="e.g., image1.jpg" />
+                    <small class="form-text text-muted">File will be loaded from ~/assets/image/bg-images/</small>
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ButtonText" class="form-label">Button Text</label>
+                    <input asp-for="ButtonText" class="form-control" placeholder="Enter button text" />
+                    <span asp-validation-for="ButtonText" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ButtonUrl" class="form-label">Button URL</label>
+                    <input asp-for="ButtonUrl" class="form-control" placeholder="Enter button URL" />
+                    <span asp-validation-for="ButtonUrl" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="@Url.Action("Index", "Slider")" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* @section Scripts { *@
+@*     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+@* } *@

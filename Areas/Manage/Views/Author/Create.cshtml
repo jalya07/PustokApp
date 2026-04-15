@@ -1,0 +1,99 @@
+@model Author
+
+<div class="container mt-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-plus-circle"></i> Create New Author</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" action="@Url.Action("Create", "Author")" class="needs-validation">
+                        <input type="hidden" name="__RequestVerificationToken" value="@ViewData["RequestVerificationToken"]" />
+                        
+                        <!-- Full Name Input -->
+                        <div class="mb-4">
+                            <label for="fullName" class="form-label fw-bold">
+                                Full Name <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="fullName" 
+                                   name="FullName" 
+                                   placeholder="Enter author's full name"
+                                   value="@Model?.FullName"
+                                   required
+                                   minlength="2"
+                                   maxlength="100">
+                            <small class="form-text text-muted">Enter the complete name of the author</small>
+                            @if (ViewData.ModelState["FullName"] != null && ViewData.ModelState["FullName"].Errors.Count > 0)
+                            {
+                                <div class="alert alert-danger mt-2 mb-0" role="alert">
+                                    @ViewData.ModelState["FullName"].Errors[0].ErrorMessage
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-5">
+                            <a href="@Url.Action("Index", "Author")" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-arrow-left"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-plus-circle"></i> Create Author
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Form Info -->
+            <div class="alert alert-info mt-4" role="alert">
+                <i class="bi bi-info-circle"></i> <strong>Note:</strong> The author name is required and must be between 2-100 characters.
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-top: 4px solid #0d6efd;
+    }
+
+    .card-header {
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .form-label {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        color: #333;
+    }
+
+    .form-control-lg {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+    }
+
+    small.form-text {
+        display: block;
+        margin-top: 0.375rem;
+    }
+
+    .alert {
+        border-radius: 0.375rem;
+    }
+</style>
+

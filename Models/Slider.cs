@@ -9,5 +9,5 @@ public class Slider
     public int Order { get; set; }
     public string ButtonText { get; set; }
     public string ButtonUrl { get; set; }
-    
+
 }
