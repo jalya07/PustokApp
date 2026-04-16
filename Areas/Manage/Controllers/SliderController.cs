@@ -39,6 +39,7 @@ public class SliderController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        
         return View(slider);
     }
 
