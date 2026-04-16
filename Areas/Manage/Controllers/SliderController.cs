@@ -99,27 +99,15 @@ public class SliderController : Controller
             return NotFound();
         }
 
-        var slider = await _context.Sliders
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var slider = await _context.Sliders.FindAsync(id);
         if (slider == null)
         {
             return NotFound();
         }
 
-        return View(slider);
-    }
+        _context.Sliders.Remove(slider);
+        await _context.SaveChangesAsync();
 
-    // POST: Manage/Slider/Delete/5
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
-    {
-        var slider = await _context.Sliders.FindAsync(id);
-        if (slider != null)
-        {
-            _context.Sliders.Remove(slider);
-            await _context.SaveChangesAsync();
-        }
         return RedirectToAction(nameof(Index));
     }
 

@@ -1,67 +1,171 @@
-@using pustokApp.Models
 @model Slider
 
 @{
     ViewData["Title"] = "Edit Slider";
 }
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <h1>Edit Slider</h1>
-            <hr />
-
-            <form asp-action="Edit" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                <input type="hidden" asp-for="Id" />
-
-                <div class="mb-3">
-                    <label asp-for="Title" class="form-label">Title</label>
-                    <input asp-for="Title" class="form-control" placeholder="Enter slider title" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
+<div class="container mt-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card shadow-lg">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0"><i class="bi bi-pencil-square"></i> Edit Slider</h4>
                 </div>
-
-                <div class="mb-3">
-                    <label asp-for="Description" class="form-label">Description</label>
-                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter slider description"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="ImageUrl" class="form-label">Image URL</label>
-                    <input asp-for="ImageUrl" class="form-control" placeholder="e.g., image1.jpg" />
-                    <small class="form-text text-muted">File will be loaded from ~/assets/image/bg-images/</small>
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                    {
-                        <div class="mt-2">
-                            <img src="~/assets/image/bg-images/@Model.ImageUrl" alt="@Model.Title" style="max-width: 200px; max-height: 150px; border-radius: 0.25rem;" />
+                <div class="card-body p-4">
+                    <form method="post" action="@Url.Action("Edit", "Slider")">
+                        @Html.AntiForgeryToken()
+                        
+                        <!-- Hidden ID -->
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        
+                        <!-- Title Input -->
+                        <div class="mb-4">
+                            <label for="title" class="form-label fw-bold">
+                                Title <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="title" 
+                                   name="Title" 
+                                   placeholder="Enter slider title"
+                                   value="@(Model?.Title ?? "")"
+                                   required>
+                            @if (ViewData.ModelState["Title"]?.Errors.Count > 0)
+                            {
+                                <div class="alert alert-danger mt-2 mb-0" role="alert">
+                                    @ViewData.ModelState["Title"].Errors[0].ErrorMessage
+                                </div>
+                            }
                         </div>
-                    }
-                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
-                </div>
 
-                <div class="mb-3">
-                    <label asp-for="ButtonText" class="form-label">Button Text</label>
-                    <input asp-for="ButtonText" class="form-control" placeholder="Enter button text" />
-                    <span asp-validation-for="ButtonText" class="text-danger"></span>
-                </div>
+                        <!-- Description Input -->
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-bold">Description</label>
+                            <textarea class="form-control form-control-lg" 
+                                      id="description" 
+                                      name="Description" 
+                                      rows="3" 
+                                      placeholder="Enter slider description">@(Model?.Description ?? "")</textarea>
+                            @if (ViewData.ModelState["Description"]?.Errors.Count > 0)
+                            {
+                                <div class="alert alert-danger mt-2 mb-0" role="alert">
+                                    @ViewData.ModelState["Description"].Errors[0].ErrorMessage
+                                </div>
+                            }
+                        </div>
 
-                <div class="mb-3">
-                    <label asp-for="ButtonUrl" class="form-label">Button URL</label>
-                    <input asp-for="ButtonUrl" class="form-control" placeholder="Enter button URL" />
-                    <span asp-validation-for="ButtonUrl" class="text-danger"></span>
-                </div>
+                        <!-- Image URL Input -->
+                        <div class="mb-4">
+                            <label for="imageUrl" class="form-label fw-bold">Image URL</label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="imageUrl" 
+                                   name="ImageUrl" 
+                                   placeholder="e.g., image1.jpg"
+                                   value="@(Model?.ImageUrl ?? "")">
+                            <small class="form-text text-muted">File will be loaded from ~/assets/image/bg-images/</small>
+                            @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+                            {
+                                <div class="mt-3">
+                                    <img src="~/assets/image/bg-images/@Model.ImageUrl" alt="@Model.Title" style="max-width: 200px; max-height: 150px; border-radius: 0.25rem; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);" />
+                                </div>
+                            }
+                            @if (ViewData.ModelState["ImageUrl"]?.Errors.Count > 0)
+                            {
+                                <div class="alert alert-danger mt-2 mb-0" role="alert">
+                                    @ViewData.ModelState["ImageUrl"].Errors[0].ErrorMessage
+                                </div>
+                            }
+                        </div>
 
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="@Url.Action("Index", "Slider")" class="btn btn-secondary">Cancel</a>
+                        <!-- Button Text Input -->
+                        <div class="mb-4">
+                            <label for="buttonText" class="form-label fw-bold">Button Text</label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="buttonText" 
+                                   name="ButtonText" 
+                                   placeholder="Enter button text"
+                                   value="@(Model?.ButtonText ?? "")">
+                            @if (ViewData.ModelState["ButtonText"]?.Errors.Count > 0)
+                            {
+                                <div class="alert alert-danger mt-2 mb-0" role="alert">
+                                    @ViewData.ModelState["ButtonText"].Errors[0].ErrorMessage
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Button URL Input -->
+                        <div class="mb-4">
+                            <label for="buttonUrl" class="form-label fw-bold">Button URL</label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="buttonUrl" 
+                                   name="ButtonUrl" 
+                                   placeholder="Enter button URL"
+                                   value="@(Model?.ButtonUrl ?? "")">
+                            @if (ViewData.ModelState["ButtonUrl"]?.Errors.Count > 0)
+                            {
+                                <div class="alert alert-danger mt-2 mb-0" role="alert">
+                                    @ViewData.ModelState["ButtonUrl"].Errors[0].ErrorMessage
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-5">
+                            <a href="@Url.Action("Index", "Slider")" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-arrow-left"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-warning btn-lg">
+                                <i class="bi bi-check-circle"></i> Update Slider
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
-@* @section Scripts { *@
-@*     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
-@* } *@
+<style>
+    .card {
+        border: none;
+        border-top: 4px solid #ffc107;
+    }
+
+    .card-header {
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .form-label {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        color: #333;
+    }
+
+    .form-control-lg {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+    }
+
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+    }
+
+    small.form-text {
+        display: block;
+        margin-top: 0.375rem;
+    }
+
+    .alert {
+        border-radius: 0.375rem;
+    }
+</style>
