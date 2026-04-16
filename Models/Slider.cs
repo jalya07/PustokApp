@@ -14,6 +14,6 @@ public class Slider
     public string ButtonUrl { get; set; }
     [NotMapped]
     [FileLength(2)]
-    [FileTypes("image/jpg", "image/png")]
+    [FileTypes("jpg", "png")]
     public IFormFile File { get; set; }
 }

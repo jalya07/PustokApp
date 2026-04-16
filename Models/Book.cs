@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using pustokApp.Attributes;
+
 namespace pustokApp.Models;
 
 public class Book
@@ -17,4 +20,23 @@ public class Book
         public Author Author { get; set; }
         public List<BookImage> BookImages { get; set; }
         public List<BookTag> BookTags { get; set; }
+        [NotMapped]
+        public List<int> TagsId { get; set; }
+        [NotMapped]
+        [FileLength(2)]
+        [FileTypes("jpg", "png")]
+        public List<IFormFile> Files { get; set; }
+        [NotMapped]
+        [FileLength(2)]
+        [FileTypes("jpg", "png")]
+        public List<IFormFile> MainPhoto { get; set; }
+        [NotMapped]
+        [FileLength(2)]
+        [FileTypes("jpg", "png")]
+        public List<IFormFile> HoverPhoto { get; set; }
+        public Book()
+        {
+                BookImages = [];
+                BookTags = [];
+        }
 }
