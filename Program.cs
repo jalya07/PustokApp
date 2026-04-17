@@ -16,10 +16,18 @@ builder.Services.Configure<GroupInfoSettings>(config.GetSection("GroupInfo"));
 builder.Services.AddDbContext<PustokAppDbContext>(options =>
     options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+app.UseSession();
 app.UseRouting();
+
 
 app.UseAuthorization();
 

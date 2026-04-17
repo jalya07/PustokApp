@@ -25,15 +25,15 @@ public class Book
         [NotMapped]
         [FileLength(2)]
         [FileTypes("jpg", "png", "jpeg")]
-        public List<IFormFile> Files { get; set; }
+        public IFormFile Files { get; set; }
         [NotMapped]
         [FileLength(2)]
         [FileTypes("jpg", "png", "jpeg")]
-        public List<IFormFile> MainPhoto { get; set; }
+        public IFormFile MainPhoto { get; set; }
         [NotMapped]
         [FileLength(2)]
         [FileTypes("jpg", "png", "jpeg")]
-        public List<IFormFile> HoverPhoto { get; set; }
+        public IFormFile HoverPhoto { get; set; }
         public Book()
         {
                 BookImages = [];

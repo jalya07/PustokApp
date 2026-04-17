@@ -5,26 +5,25 @@ using pustokApp.Setting;
 
 namespace pustokApp.Controllers;
 
-public class BasketController(
-    IConfiguration config,
-    BankService bankService,
-    BankManager bankManager,
-    IOptions<GroupInfoSettings> groupInfoSettings 
-    ) : Controller
+public class BasketController() : Controller
 {
     public IActionResult Index()
     {
-        bankService.Add();
-        bankManager.Add();
-        
-        return Content(""+bankService.Balance);
+        return View();
     }
-
-    public IActionResult ShowInfo()
+    public IActionResult SetCookie(string key, string value)
     {
-        var groupInfo = groupInfoSettings.Value;
-        var stuName = groupInfo.StudentName;
-        var stuSurname = groupInfo.StudentSurname;
-        return Content($"Student name: {stuName} Student surname: {stuSurname}");
+        Response.Cookies.Append("pustokCookie", "pustokk");
+        return Content("Cookie set successfully");
+    }
+    public IActionResult SetSession(string key, string value)
+    {
+        HttpContext.Session.SetString("pustokSession", "pustokk");
+        return Content("Session set successfully");
+    }
+    public IActionResult GetSession(string key)
+    {
+        var sessionValue = HttpContext.Session.GetString("pustokSession");
+        return Content($"Session value: {sessionValue}");
     }
 }
