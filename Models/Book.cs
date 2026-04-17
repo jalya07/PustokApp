@@ -24,15 +24,15 @@ public class Book
         public List<int> TagsId { get; set; }
         [NotMapped]
         [FileLength(2)]
-        [FileTypes("jpg", "png")]
+        [FileTypes("jpg", "png", "jpeg")]
         public List<IFormFile> Files { get; set; }
         [NotMapped]
         [FileLength(2)]
-        [FileTypes("jpg", "png")]
+        [FileTypes("jpg", "png", "jpeg")]
         public List<IFormFile> MainPhoto { get; set; }
         [NotMapped]
         [FileLength(2)]
-        [FileTypes("jpg", "png")]
+        [FileTypes("jpg", "png", "jpeg")]
         public List<IFormFile> HoverPhoto { get; set; }
         public Book()
         {

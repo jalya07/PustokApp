@@ -13,16 +13,20 @@ public class FileTypesAttribute: ValidationAttribute
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
         List<IFormFile> files = value as List<IFormFile>;
-        if (files != null)
+        if (files != null && files.Count > 0)
         {            
             foreach (var file in files)
-            {                
-                if (!FileTypes.Contains(file.ContentType))
+            {
+                // Get file extension without the dot
+                var fileExtension = Path.GetExtension(file.FileName).TrimStart('.').ToLower();
+                
+                // Check if extension is in the allowed list
+                if (!FileTypes.Any(ft => ft.ToLower() == fileExtension))
                 {                    
                     return new ValidationResult($"File type must be one of the following: {string.Join(", ", FileTypes)}");
                 }
             }
         }
-        return base.IsValid(value, validationContext);
+        return ValidationResult.Success;
     }
 }
