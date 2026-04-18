@@ -1,0 +1,176 @@
+@model pustokApp.ViewModels.UserVm.RegisterVm
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pustok - Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            background: linear-gradient(135deg, #5B7FE8 0%, #5B7FE8 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 60px 50px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #5B7FE8;
+            background-color: white;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5B7FE8;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4A6FD8;
+        }
+
+        button:active {
+            background-color: #3A5FC8;
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer-link p {
+            color: #666;
+        }
+
+        .footer-link a {
+            color: #5B7FE8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .footer-link a:hover {
+            color: #4A6FD8;
+        }
+
+        .alert {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .validation-message {
+            color: #dc3545;
+            font-size: 12px;
+            text-align: left;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Create Account</h1>
+
+        <form method="post">
+            <div>
+                <input type="text" asp-for="FullName" placeholder="Full Name" required>
+                <span asp-validation-for="FullName" class="validation-message"></span>
+            </div>
+
+            <div>
+                <input type="text" asp-for="UserName" placeholder="Username" required>
+                <span asp-validation-for="UserName" class="validation-message"></span>
+            </div>
+
+            <div>
+                <input type="email" asp-for="Email" placeholder="Email Address" required>
+                <span asp-validation-for="Email" class="validation-message"></span>
+            </div>
+
+            <div>
+                <input type="password" asp-for="Password" placeholder="Password" required>
+                <span asp-validation-for="Password" class="validation-message"></span>
+            </div>
+
+            <div>
+                <input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" required>
+                <span asp-validation-for="ConfirmPassword" class="validation-message"></span>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="footer-link">
+            <p>Already have an account? <a href="/account/login">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

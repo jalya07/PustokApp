@@ -67,6 +67,12 @@ public class AdminAccountController(
         await signInManager.SignOutAsync();
         return RedirectToAction("Login");
     }
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UserProfile()
+    {
+        var user = await userManager.GetUserAsync(HttpContext.User);
+        return Json(user);
+    }
 }
 
 

@@ -14,6 +14,12 @@ public class AccountController(
     {
         return View();
     }
+
+    public IActionResult Register()
+    {
+        return View();
+    }
+    
     // public async Task<IActionResult> CreateRole()
     // {
     //     await roleManager.CreateAsync(new IdentityRole("Admin"));
