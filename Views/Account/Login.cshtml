@@ -1,6 +1,7 @@
-@model pustokApp.ViewModels.UserVm.RegisterVm
+@model pustokApp.ViewModels.UserVm.LoginVm
 @{
     ViewData["Title"] = "Login";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pustok - Register</title>
+    <title>Pustok - Login</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +28,7 @@
             padding: 20px;
         }
 
-        .register-container {
+        .login-container {
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -69,6 +70,26 @@
 
         input::placeholder {
             color: #aaa;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #5B7FE8;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
         }
 
         button {
@@ -131,48 +152,70 @@
             margin-top: -10px;
             margin-bottom: 10px;
         }
+
+        .validation-summary {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 1px solid #f5c6cb;
+            text-align: left;
+        }
+
+        .validation-summary ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .validation-summary li {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
-<div class="register-container">
-    <h1>Create Account</h1>
+<div class="login-container">
+    <h1>Welcome Back!</h1>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="validation-summary">
+            <ul>
+                @foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    @foreach (var error in modelState.Errors)
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
 
     <form method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger" ></div>
         <div>
-            <input type="text" asp-for="FullName" placeholder="Full Name" required>
-            <span asp-validation-for="FullName" class="validation-message"></span>
+            <input type="text" asp-for="UserNameOrEmail" placeholder="Username or Email" required>
+            <span asp-validation-for="UserNameOrEmail" class="validation-message"></span>
         </div>
-
-        <div>
-            <input type="text" asp-for="UserName" placeholder="Username" required>
-            <span asp-validation-for="UserName" class="validation-message"></span>
-        </div>
-
-        <div>
-            <input type="email" asp-for="Email" placeholder="Email Address" required>
-            <span asp-validation-for="Email" class="validation-message"></span>
-        </div>
+        
 
         <div>
             <input type="password" asp-for="Password" placeholder="Password" required>
             <span asp-validation-for="Password" class="validation-message"></span>
         </div>
 
-        <div>
-            <input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" required>
-            <span asp-validation-for="ConfirmPassword" class="validation-message"></span>
+        <div class="checkbox-group">
+            <input type="checkbox" asp-for="RememberMe" id="rememberMe">
+            <label for="rememberMe">Remember me</label>
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
     </form>
 
     <div class="footer-link">
-        <p>Already have an account? <a href="/account/login">Login here</a></p>
+        <p>Don't have an account? <a href="/account/register">Register here</a></p>
     </div>
 </div>
-@* @section scripts { *@
-@*     <partial name="_ValidationScriptsPartial" /> *@
-@* } *@
 </body>
 </html>
