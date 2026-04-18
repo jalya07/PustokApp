@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.Scripting.Hosting;
 using Microsoft.EntityFrameworkCore;
+using pustokApp;
 using pustokApp.Data;
 using pustokApp.Models;
 using pustokApp.Service;
@@ -37,7 +38,9 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(opt=>
     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
     opt.Lockout.MaxFailedAccessAttempts = 5;
     opt.Lockout.AllowedForNewUsers = true;
-}).AddEntityFrameworkStores<PustokAppDbContext>().AddDefaultTokenProviders();
+})
+    .AddErrorDescriber<CustomIdentityErrorDescriber>()
+    .AddEntityFrameworkStores<PustokAppDbContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
 
