@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Scripting.Hosting;
 using Microsoft.EntityFrameworkCore;
 using pustokApp.Data;
+using pustokApp.Models;
 using pustokApp.Service;
 using pustokApp.Setting;
 
@@ -22,13 +25,27 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddIdentity<AppUser, IdentityRole>(opt=>
+{
+    opt.Password.RequireDigit = true;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireUppercase = true;
+    opt.Password.RequireNonAlphanumeric = true;
+    opt.Password.RequiredLength = 6;
+    
+    // opt.User.RequireUniqueEmail = true;
+    opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+    opt.Lockout.MaxFailedAccessAttempts = 5;
+    opt.Lockout.AllowedForNewUsers = true;
+}).AddEntityFrameworkStores<PustokAppDbContext>().AddDefaultTokenProviders();
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseSession();
 app.UseRouting();
 
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

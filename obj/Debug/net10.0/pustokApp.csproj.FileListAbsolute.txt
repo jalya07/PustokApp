@@ -396,3 +396,4 @@
 /Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/obj/Debug/net10.0/pustokApp.pdb
 /Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/obj/Debug/net10.0/pustokApp.genruntimeconfig.cache
 /Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/obj/Debug/net10.0/ref/pustokApp.dll
+/Users/jalyahesenli/RiderProjects/pustokApp/pustokApp/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

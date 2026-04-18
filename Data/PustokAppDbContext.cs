@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using pustokApp.Models;
 
 namespace pustokApp.Data;
 
-public class PustokAppDbContext:DbContext
+public class PustokAppDbContext:IdentityDbContext<AppUser>
 {
     public DbSet<Author> Authors { get; set; }
     public DbSet<Models.Setting> Settings { get; set; }

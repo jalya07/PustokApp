@@ -1,0 +1,152 @@
+@model pustokApp.Areas.Manage.ViewModels.AdminLoginVm
+
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pustok Admin - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            background: linear-gradient(135deg, #5B7FE8 0%, #5B7FE8 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 60px 50px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #5B7FE8;
+            background-color: white;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5B7FE8;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4A6FD8;
+        }
+
+        button:active {
+            background-color: #3A5FC8;
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer-link a {
+            color: #5B7FE8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link a:hover {
+            color: #4A6FD8;
+        }
+
+        .alert {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Welcome Back!</h1>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form method="post">
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Enter Username..." required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="footer-link">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

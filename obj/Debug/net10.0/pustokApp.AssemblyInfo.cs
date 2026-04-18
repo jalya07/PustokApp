@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pustokApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1ac77adad88ff0bfd27420020d6dfdd7f7693b9a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3d1bbadaf86c243c8aa165bb23229fbd3435a73")]
 [assembly: System.Reflection.AssemblyProductAttribute("pustokApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pustokApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

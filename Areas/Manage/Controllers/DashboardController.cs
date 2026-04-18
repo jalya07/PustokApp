@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace pustokApp.Areas.Manage.Controllers;
 [Area("Manage")]
+[Authorize]
 public class DashboardController : Controller
 {
-    // GET
+    
     public IActionResult Index()
     {
         return View();
