@@ -13,6 +13,7 @@ public class PustokAppDbContext:IdentityDbContext<AppUser>
     public DbSet<BookTag> BookTags { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<Slider> Sliders { get; set; }
+    public DbSet<BasketItem> BasketItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
