@@ -8,5 +8,5 @@ public class LayoutService(PustokAppDbContext context)
     {
         return context.Settings.ToDictionary(x => x.Key, x => x.Value);
     }
-    
+
 }

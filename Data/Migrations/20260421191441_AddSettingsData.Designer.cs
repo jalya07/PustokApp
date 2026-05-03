@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pustokApp.Data;
 
@@ -11,9 +12,11 @@ using pustokApp.Data;
 namespace pustokApp.Migrations
 {
     [DbContext(typeof(PustokAppDbContext))]
-    partial class PustokAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260421191441_AddSettingsData")]
+    partial class AddSettingsData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,7 +245,7 @@ namespace pustokApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("pustokApp.Models.BasketItem", b =>
@@ -269,7 +272,7 @@ namespace pustokApp.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BasketItems", (string)null);
+                    b.ToTable("BasketItems");
                 });
 
             modelBuilder.Entity("pustokApp.Models.Book", b =>
@@ -322,7 +325,7 @@ namespace pustokApp.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("pustokApp.Models.BookImage", b =>
@@ -344,7 +347,7 @@ namespace pustokApp.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookImages", (string)null);
+                    b.ToTable("BookImages");
                 });
 
             modelBuilder.Entity("pustokApp.Models.BookTag", b =>
@@ -362,7 +365,7 @@ namespace pustokApp.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("BookTags", (string)null);
+                    b.ToTable("BookTags");
                 });
 
             modelBuilder.Entity("pustokApp.Models.Setting", b =>
@@ -376,7 +379,7 @@ namespace pustokApp.Migrations
 
                     b.HasKey("Key");
 
-                    b.ToTable("Settings", (string)null);
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("pustokApp.Models.Slider", b =>
@@ -412,7 +415,7 @@ namespace pustokApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders", (string)null);
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("pustokApp.Models.Tag", b =>
@@ -429,7 +432,7 @@ namespace pustokApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

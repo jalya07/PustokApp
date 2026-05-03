@@ -107,7 +107,7 @@ public class AccountController(
         return RedirectToAction("Index", "Home");
     }
     
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UserProfile(string tab="dashboard")
     {
         ViewBag.Tab = tab;
@@ -124,7 +124,7 @@ public class AccountController(
         return View(userProfileVm);
     }
 
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> UserProfile(UserProfileVm vm)
     {

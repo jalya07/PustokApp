@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -44,14 +45,31 @@ public class BasketController(PustokAppDbContext context) : Controller
 
         if (User.Identity.IsAuthenticated)
         {
-         // var user=context.Users
-             // .Include(u => u.BasketItems)
-             // .FirstOrDefault(u => u.UserName == User.Identity.Name);
+            // CultureInfo cultureInfo = new CultureInfo("en-US");
+         var user=context.Users
+             .Include(u => u.BasketItems)
+             .FirstOrDefault(u => u.UserName == User.Identity.Name);
+         var existBasketItemDb=user.BasketItems.FirstOrDefault(b => b.BookId == existbasketItem.BookId);
+         if (existBasketItemDb == null)
+         {
+             context.BasketItems.Add(new BasketItem
+             {
+                 BookId = book.Id,
+                 Count = 1,
+                 AppUserId = user.Id,
+             });
+         }
+         else     
+         {
+             existBasketItemDb.Count++;
+         }
+         context.SaveChanges();
         }
-        Response.Cookies.Append("pustokSession", Newtonsoft.Json.JsonConvert.SerializeObject(basketItems));
+        
+        Response.Cookies.Append("Basket", Newtonsoft.Json.JsonConvert.SerializeObject(basketItems));
             
         
-        return PartialView("_BasketPartial",new List<BasketItem>());
+        return PartialView("_BasketPartial",basketItems);
     }
     
     

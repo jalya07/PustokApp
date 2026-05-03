@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.Scripting.Hosting;
 using Microsoft.EntityFrameworkCore;
 using pustokApp;
 using pustokApp.Data;
+using pustokApp.Hubs;
 using pustokApp.Models;
 using pustokApp.Service;
 using pustokApp.Setting;
@@ -15,7 +16,7 @@ builder.Services.AddScoped<BankService>();
 builder.Services.AddScoped<BankManager>();
 builder.Services.AddScoped<LayoutService>();
 builder.Services.Configure<GroupInfoSettings>(config.GetSection("GroupInfo"));
-
+builder.Services.AddSignalR();
 // var confg = builder.Configuration;
 builder.Services.AddDbContext<PustokAppDbContext>(options =>
     options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
@@ -42,6 +43,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(opt=>
     .AddErrorDescriber<CustomIdentityErrorDescriber>()
     .AddEntityFrameworkStores<PustokAppDbContext>().AddDefaultTokenProviders();
 
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
@@ -52,6 +54,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.MapHub<ChatPractiseHub>("/chatHub");
 app.MapControllerRoute(
     name : "areas",
     pattern : "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
@@ -61,6 +64,5 @@ app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();
